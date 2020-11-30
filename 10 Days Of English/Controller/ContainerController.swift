@@ -25,7 +25,7 @@ class ContainerController: UIViewController {
         let navContrcller = UINavigationController(rootViewController: homeController)
         view.addSubview(navContrcller.view)
         addChild(navContrcller)
-        print("initiliaz HOME")
+        print("initiliazz HOME")
         
     }
     
