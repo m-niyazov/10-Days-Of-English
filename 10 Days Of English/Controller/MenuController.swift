@@ -59,7 +59,7 @@ class MenuController: UIViewController {
     func  configureNavigationBar(){
         let centerTitleLabel: UILabel = {
             let label = UILabel()
-            label.textColor = blue
+            label.textColor = mainBlue
             
             label.textAlignment = .center
             label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -98,7 +98,7 @@ extension MenuController: UITableViewDelegate, UITableViewDataSource {
         cell.subtitile.textColor = .lightGray
         cell.titleLabel.textColor = .lightGray
         if (activeDay?.title == cell.titleLabel.text){
-            cell.subtitile.textColor = blue
+            cell.subtitile.textColor = mainBlue
             cell.titleLabel.textColor = .black
         }
         

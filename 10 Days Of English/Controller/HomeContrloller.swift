@@ -65,14 +65,14 @@ class HomeController: UIViewController {
             label.textAlignment = .center
             label.font = UIFont.boldSystemFont(ofSize: 16)
             label.text = "День \(day!.whichDay)"
-            label.backgroundColor = pink
+            label.backgroundColor = mainPink
             return label
             
         }()
         
         let backItem = UIBarButtonItem()
         backItem.title = "Назад"
-        backItem.tintColor = pink
+        backItem.tintColor = mainPink
         navigationItem.backBarButtonItem = backItem
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBarLabel)

@@ -13,7 +13,7 @@ class MenuOptionCell: UITableViewCell {
     
     var subtitile: UILabel = {
         let label = UILabel()
-        label.textColor = blue
+        label.textColor = mainBlue
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.text = "День 1"
         
