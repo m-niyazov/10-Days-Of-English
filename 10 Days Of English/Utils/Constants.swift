@@ -12,3 +12,5 @@ import  UIKit
 var mainBlue = UIColor(red:CGFloat(100) / CGFloat(255), green: CGFloat(190) / CGFloat(255), blue: CGFloat(245) / CGFloat(255), alpha: 1.0)
 
 var mainPink = UIColor(red:CGFloat(248) / CGFloat(255), green: CGFloat(159) / CGFloat(255), blue: CGFloat(174) / CGFloat(255), alpha: 1.0)
+
+var lightBlue = UIColor(red:CGFloat(217) / CGFloat(255), green: CGFloat(245) / CGFloat(255), blue: CGFloat(245) / CGFloat(255), alpha: 1.0)

@@ -8,8 +8,12 @@
 
 import Foundation
 
+struct TableListData {
+    
+}
 
 struct Day {
     var whichDay: Int
     var title: String
+    var tableListData: [String]?
 }

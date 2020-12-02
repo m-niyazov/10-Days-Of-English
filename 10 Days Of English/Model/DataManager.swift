@@ -18,7 +18,15 @@ final class DataManager {
     
     
     func daysListUpdate(){
-        let day1 = Day(whichDay: 1, title: "СМОТРИМ СЕРИЮ “ДРУЗЕЙ")
+        let day1 = Day(whichDay: 1,
+                       title: "СМОТРИМ СЕРИЮ “ДРУЗЕЙ",
+                       tableListData: [ "Включи любую серию с английскими субтитрами",
+                                        "Выпиши все незнакомые слова и выражения в словарь",
+                                       "Напиши к ним перевод;",
+                                       "Пересмотри серию, но теперь без субтитров, что поможет в практике аудирования!"]
+        )
+        
+        
         let day2 = Day(whichDay: 2, title: "ВЫУЧИТЬ НЕПРАВИЛЬНЫЕ ГЛАГОЛЫ")
         let day3 = Day(whichDay: 3, title: "РАЗБЕРИ СВОЮ ЛЮБИМУЮ ПЕСНЮ")
         let day4 = Day(whichDay: 4, title: "УЧИМ ФРАЗОВЫЕ ГЛАГОЛЫ")

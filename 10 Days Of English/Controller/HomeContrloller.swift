@@ -42,7 +42,9 @@ class HomeController: UIViewController {
     
     func configureNavigationBar(){
         navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.shadowImage = UIImage()
+      
         
         var image: UIImage?
         
