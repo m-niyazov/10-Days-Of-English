@@ -45,9 +45,10 @@ class Day1: UIViewController {
         
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor).isActive = true
-        label.leftAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
-        label.rightAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.rightAnchor).isActive = true
+//      label.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor).isActive = true
+        label.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 30).isActive = true
+        label.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
     init(day: Day?) {
