@@ -12,21 +12,18 @@ import SnapKit
 class Day1: UIViewController {
     //MARK: - Properties
     var day: Day!
-    lazy  var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+    
     //MARK: - Views
     
     lazy var scrollView: UIScrollView = {
-        let view = UIScrollView(frame: .zero)
+        let view = UIScrollView()
         view.backgroundColor = .white
-        view.frame = self.view.bounds
-        view.contentSize = contentViewSize
         return view
     }()
     
     lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.frame.size = contentViewSize
         return view
     }()
     
@@ -66,16 +63,11 @@ class Day1: UIViewController {
         return stackViewList
     }()
     
-    lazy var nextDayBtn: UIButton = {
-        let nextBtn = UIButton()
-        nextBtn.setTitle("День \(day.whichDay + 1)", for: .normal)
+    lazy var additionalInfoContainer: UIView = {
+        let viewContainer = UIView()
         
-        return nextBtn
-    }()
-    
-    func pinkBorderLabel(text: String) -> UILabel{
         let label = UILabel()
-        label.text = "\(text)"
+        label.text = "Готово"
         label.font = UIFont (name: "HelveticaNeue", size: 16)
         label.layer.borderColor = mainPink.cgColor
         label.layer.borderWidth = 3
@@ -85,25 +77,89 @@ class Day1: UIViewController {
             make.height.equalTo(35)
             make.width.equalTo(80)
         }
-        return label
-    }
-    
-    func importantNoteText(text: String) -> UILabel{
+        
         let noteText = UILabel()
-        noteText.text = "\(text)"
+        noteText.text = "\(day.additionalInfo!)"
         noteText.numberOfLines = 0
         noteText.font = UIFont (name: "HelveticaNeue", size: 17)
-        return noteText
-    }
+        
+        viewContainer.addSubview(label)
+        viewContainer.addSubview(noteText)
+        label.snp.makeConstraints { (make) in
+            make.top.equalTo(viewContainer.snp.top)
+            
+        }
+        noteText.snp.makeConstraints { (make) in
+            make.top.equalTo(label.snp.bottom).offset(15)
+            make.left.equalTo(viewContainer.snp.left).offset(5)
+            make.right.equalTo(viewContainer.snp.right)
+            make.bottom.equalTo(viewContainer.snp.bottom)
+        }
+        return viewContainer
+        
+    }()
+    
+    lazy var importantNoteContainer: UIView = {
+        let viewContainer = UIView()
+        
+        let label = UILabel()
+        label.text = "Важно!"
+        label.font = UIFont (name: "HelveticaNeue", size: 16)
+        label.layer.borderColor = mainPink.cgColor
+        label.layer.borderWidth = 3
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        label.snp.makeConstraints { (make) in
+            make.height.equalTo(35)
+            make.width.equalTo(80)
+        }
+        
+        let noteText = UILabel()
+        noteText.text = "\(day.importantNote!)"
+        noteText.numberOfLines = 0
+        noteText.font = UIFont (name: "HelveticaNeue", size: 17)
+        
+        viewContainer.addSubview(label)
+        viewContainer.addSubview(noteText)
+        label.snp.makeConstraints { (make) in
+            make.top.equalTo(viewContainer.snp.top)
+            
+        }
+        noteText.snp.makeConstraints { (make) in
+            make.top.equalTo(label.snp.bottom).offset(15)
+            make.left.equalTo(viewContainer.snp.left).offset(5)
+            make.right.equalTo(viewContainer.snp.right)
+            make.bottom.equalTo(viewContainer.snp.bottom)
+        }
+        
+        return viewContainer
+        
+    }()
+    
+    
+    lazy var nextDayBtn: UIButton = {
+        let nextBtn = UIButton()
+        nextBtn.setTitle("День \(day.whichDay + 1)", for: .normal)
+        nextBtn.backgroundColor = mainBlue
+        nextBtn.tintColor = .white
+        nextBtn.layer.cornerRadius = 5
+        nextBtn.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
+        }
+        return nextBtn
+    }()
+    
+    
+    
     
     
     
     //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
+        
         configureUiElements()
+        print(self.view.frame.height)
     }
     
     init(day: Day?) {
@@ -119,6 +175,25 @@ class Day1: UIViewController {
     // MARK: - Handlers
     
     func configureUiElements(){
+        //Scroll View and Container VIew
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (make) in
+            make.top.equalTo(view)
+            make.left.equalTo(view)
+            make.bottom.equalTo(view)
+            make.right.equalTo(view)
+            
+        }
+        scrollView.addSubview(containerView)
+        containerView.snp.makeConstraints { (make) in
+            make.top.equalTo(scrollView)
+            make.left.equalTo(scrollView)
+            make.bottom.equalTo(scrollView)
+            make.right.equalTo(scrollView)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
+        
         //mainTitleLabel
         containerView.addSubview(mainTitleLabel)
         mainTitleLabel.snp.makeConstraints { (make) -> Void in
@@ -154,70 +229,47 @@ class Day1: UIViewController {
         //stackViewList
         generateStackViewListCell()
         
-        //importantNoteLabel
-        whichLabelShow()
+        
+        if(day.additionalInfo != nil ) {
+            //importantNoteLabel
+            containerView.addSubview(additionalInfoContainer)
+            additionalInfoContainer.snp.makeConstraints { (make) in
+                make.left.equalTo(containerView.snp.left).offset(20)
+                make.right.equalTo(containerView.snp.right).offset(-20)
+                make.top.equalTo(stackViewListContainer.snp.bottom).offset(20)
+            }
+            
+            //importantNoteContainer
+            containerView.addSubview(importantNoteContainer)
+            importantNoteContainer.snp.makeConstraints { (make) in
+                make.left.equalTo(containerView.snp.left).offset(20)
+                make.right.equalTo(containerView.snp.right).offset(-20)
+                make.top.equalTo(additionalInfoContainer.snp.bottom).offset(20)
+            }
+        } else {
+            //importantNoteContainer
+            containerView.addSubview(importantNoteContainer)
+            importantNoteContainer.snp.makeConstraints { (make) in
+                make.left.equalTo(containerView.snp.left).offset(20)
+                make.right.equalTo(containerView.snp.right).offset(-20)
+                make.top.equalTo(stackViewListContainer.snp.bottom).offset(20)
+            }
+        }
+        
+        
         
         //nextDayBtn
         containerView.addSubview(nextDayBtn)
         nextDayBtn.snp.makeConstraints { (make) in
-            <#code#>
+            make.top.equalTo(importantNoteContainer.snp.bottom).offset(20)
+            make.left.equalTo(containerView.snp.left).offset(20)
+            make.bottom.equalTo(containerView.snp.bottom).offset(-20)
+            make.right.equalTo(containerView.snp.right).offset(-20)
+            
         }
+        
     }
     
-    
-
-    
-    func whichLabelShow(){
-        if((day.additionalInfo) != nil) {
-            let additionalInfoLabel = pinkBorderLabel(text: "Готово!")
-            containerView.addSubview(additionalInfoLabel)
-            additionalInfoLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(stackViewListContainer.snp.bottom).offset(20)
-                make.left.equalTo(containerView.snp.left).offset(20)
-            }
-            
-            let additionalInfo = importantNoteText(text: "\(day.additionalInfo!)")
-            containerView.addSubview(additionalInfo)
-            additionalInfo.snp.makeConstraints { (make) in
-                make.top.equalTo(additionalInfoLabel.snp.bottom).offset(15)
-                make.left.equalTo(containerView.snp.left).offset(25)
-                make.right.equalTo(containerView.snp.right).offset(-20)
-            }
-            
-            
-            let importantNoteLabel = pinkBorderLabel(text: "Важно!")
-            containerView.addSubview(importantNoteLabel)
-            importantNoteLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(additionalInfo.snp.bottom).offset(20)
-                make.left.equalTo(containerView.snp.left).offset(20)
-            }
-            
-            let importantNote = importantNoteText(text: "\(day.importantNoteText!)")
-            containerView.addSubview(importantNote)
-            
-            importantNote.snp.makeConstraints { (make) in
-                make.top.equalTo(importantNoteLabel.snp.bottom).offset(15)
-                make.left.equalTo(containerView.snp.left).offset(25)
-                make.right.equalTo(containerView.snp.right).offset(-20)
-            }
-        } else {
-            let importantNoteLabel = pinkBorderLabel(text: "Важно!")
-            containerView.addSubview(importantNoteLabel)
-            importantNoteLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(stackViewListContainer.snp.bottom).offset(20)
-                make.left.equalTo(containerView.snp.left).offset(20)
-            }
-            
-            let importantNote = importantNoteText(text: "\(day.importantNoteText!)")
-            containerView.addSubview(importantNote)
-            
-            importantNote.snp.makeConstraints { (make) in
-                make.top.equalTo(importantNoteLabel.snp.bottom).offset(15)
-                make.left.equalTo(containerView.snp.left).offset(25)
-                make.right.equalTo(containerView.snp.right).offset(-20)
-            }
-        }
-    }
     
     func generateStackViewListCell(){
         //stackViewListCell
