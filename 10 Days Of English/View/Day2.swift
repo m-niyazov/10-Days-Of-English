@@ -49,12 +49,7 @@ class Day2: UIViewController {
         label.leftAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leftAnchor, constant: 30).isActive = true
         label.rightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.rightAnchor).isActive = true
         
-        let label2: UILabel = {
-            let label = UILabel()
-            label.text = "Someone text22222"
-            return label
-        }()
-        
+    
 //        scrollView.addSubview(label2)
 //
 //        label2.translatesAutoresizingMaskIntoConstraints = false

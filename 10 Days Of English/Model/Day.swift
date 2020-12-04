@@ -16,4 +16,6 @@ struct Day {
     var whichDay: Int
     var title: String
     var tableListData: [String]?
+    var importantNoteText: String?
+    var additionalInfo: String?
 }
