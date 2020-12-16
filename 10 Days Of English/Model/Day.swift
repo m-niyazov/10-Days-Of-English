@@ -8,14 +8,19 @@
 
 import Foundation
 
-struct TableListData {
-    
-}
 
 struct Day {
     var whichDay: Int
     var title: String
-    var tableListData: [String]?
+    var listData: [String]
     var importantNote: String?
     var additionalInfo: String?
+    
+    init(dictionary: [String : AnyObject]) {
+        self.whichDay = dictionary["whichDay"] as? Int ?? 0
+        self.title = dictionary["title"] as? String ?? ""
+        self.listData = dictionary["listData"] as? [String]   ?? [""]
+        self.importantNote = dictionary["importantNote"] as? String  ?? nil
+        self.additionalInfo = dictionary["additionalInfo"] as? String  ?? nil
+    }
 }

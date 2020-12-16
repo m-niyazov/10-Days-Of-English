@@ -10,21 +10,25 @@ import UIKit
 
 class MenuOptionCell: UITableViewCell {
     // MARK: - Properties
+    weak var viewModel: MenuOptionCellVMType! {
+        willSet(viewModel){
+            subtitile.text = "День \(viewModel!.whichDay)"
+            titleLabel.text = " \(viewModel!.title)"
+        }
+    }
     
-    var subtitile: UILabel = {
+    lazy var subtitile: UILabel = {
         let label = UILabel()
-        label.textColor = mainBlue
+        label.textColor = .mainBlue
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "День 1"
-        
         return label
     }()
     
-    var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Simple text"
+
         return label
         
     }()
@@ -33,9 +37,6 @@ class MenuOptionCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
- 
-      
         addSubview(subtitile)
         subtitile.translatesAutoresizingMaskIntoConstraints = false
         subtitile.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
@@ -46,14 +47,8 @@ class MenuOptionCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: subtitile.bottomAnchor, constant: 5).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-    
-      
-        
         
     }
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

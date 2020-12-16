@@ -7,56 +7,78 @@
 //
 
 import UIKit
+import SnapKit
 
 class HomeController: UIViewController {
     // MARK: - Properties
-    var day: Day?
+    var days: [Day]?
+    var viewModel: DayViewVMType?
     
-    
-    
-    // MARK: - Init
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .blue
-        whichDayControllerShow()
-        configureNavigationBar()
+        self.view.backgroundColor = .white
+        fetchDays()
+        
         
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard  let viewModel = viewModel else { return }
+        updateLeftBarLabel(text: "День \(viewModel.whichDay)")
+        configureDayView()
+    }
     
-    // MARK: - Handlers
+    //MARK: API
+    func fetchDays() {
+        DaysService.shared.fetchDays { (days) in
+            self.days = days
+            self.viewModel = DayViewModel(day: days[0])
+            self.configureNavigationBar()
+            self.configureDayView()
+        }
+        
+    }
+    
+    
+    // MARK: - Selectors
     
     @objc func handleMenuToggle(){
-        let menuController = MenuController(activeDay: day)
-        menuController.delegate = self
+        let menuController = MenuController()
+        guard let days = days else { return }
+        menuController.viewModel = MenuControllerViewModel(days: days)
         navigationController?.pushViewController(menuController, animated: true)
     }
     
-    func updateLeftBarLabel(text: String){
-        let label = navigationItem.leftBarButtonItem!.customView as! UILabel
-        label.text = text
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
+    // MARK: - Helpers
+    func configureDayView(){
+        guard let viewModel = viewModel else { return }
+        let dayView = DayMainView(frame: .zero, viewModel: viewModel)
+        if(view.subviews.count >= 1){
+            for view in view.subviews {
+                view.removeFromSuperview()
+            }
+            view.addSubview(dayView)
+        } else {
+            view.addSubview(dayView)
+        }
+        dayView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(0)
+            make.left.equalTo(view).offset(16)
+            make.bottom.equalTo(view)
+            make.right.equalTo(view).offset(-16)
+       
         
+        }
+       
     }
     
-    func configureNavigationBar(){
+    func configureNavigationBar() {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.shadowImage = UIImage()
-      
-        
-        var image: UIImage?
-        
-        if #available(iOS 13.0, *) {
-            let boldFont = UIFont.boldSystemFont(ofSize: 20)
-            let configuration = UIImage.SymbolConfiguration(font: boldFont)
-            image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
-            let blackColorImage = image?.withTintColor(.black, renderingMode: .alwaysOriginal)
-            image = blackColorImage
-        } else {
-            image = UIImage(named: "menu-icon")
-        }
         
         let leftBarLabel: UILabel = {
             let label = UILabel()
@@ -66,82 +88,36 @@ class HomeController: UIViewController {
             label.layer.cornerRadius = 10
             label.textAlignment = .center
             label.font = UIFont.boldSystemFont(ofSize: 16)
-            label.text = "День \(day!.whichDay)"
-            label.backgroundColor = mainPink
+            label.text = "День \(viewModel!.whichDay)"
+            label.backgroundColor = .mainPink
             return label
             
         }()
         
+        let rightBarImage: UIImage = {
+            var image = UIImage()
+            let boldFont = UIFont.boldSystemFont(ofSize: 20)
+            let configuration = UIImage.SymbolConfiguration(font: boldFont)
+            image = UIImage(systemName: "list.bullet", withConfiguration: configuration)!
+            let blackColorImage = image.withTintColor(.black, renderingMode: .alwaysOriginal)
+            image = blackColorImage
+            return image
+        }()
+        
+        
         let backItem = UIBarButtonItem()
         backItem.title = "Назад"
-        backItem.tintColor = mainPink
+        backItem.tintColor = .mainPink
         navigationItem.backBarButtonItem = backItem
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBarLabel)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleMenuToggle))
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightBarImage, style: .plain, target: self, action: #selector(handleMenuToggle))
     }
-    
-    
-    func whichDayControllerShow() {
-        if(day == nil) {
-            self.day = DataManager.instance.daysList[0]
-            let day1 = Day1(day: day)
-            self.addChildElement(day1)
-        } else {
-            let day1 = Day1(day: day)
-            let day2 = Day2(day: day)
-            
-            deleteChildElement()
-            
-            switch day!.whichDay {
-            case 1:
-                self.addChildElement(day1)
-            case 2:
-                self.addChildElement(day2)
-            default:
-                print("\(day?.whichDay ?? 0) default switch")
-            }
-        }
+    func updateLeftBarLabel(text: String){
+        let label = navigationItem.leftBarButtonItem!.customView as! UILabel
+        label.text = text
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
         
     }
     
 }
-
-
-extension HomeController: MenuControllerDelegate {
-    func selectedDay(day: Day) {
-        if(self.day?.title == day.title) {
-            updateLeftBarLabel(text: "День \(day.whichDay)")
-        } else {
-            self.day = day
-            updateLeftBarLabel(text: "День \(day.whichDay)")
-            whichDayControllerShow()
-        }
-        
-    }
-    
-}
-
-extension HomeController {
-    func addChildElement(_ child: UIViewController){
-        addChild(child)
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-        print("add \(child)")
-    }
-    
-    func deleteChildElement(){
-        if self.children.count > 0 {
-            let viewControllers:[UIViewController] = self.children
-            for viewContoller in viewControllers{
-                viewContoller.willMove(toParent: nil)
-                viewContoller.view.removeFromSuperview()
-                viewContoller.removeFromParent()
-                print("delete  \(viewContoller)")
-            }
-            
-        }
-    }
-}
-

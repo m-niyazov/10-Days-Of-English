@@ -11,26 +11,25 @@ class ContainerController: UIViewController {
     // MARK: - Properties
     var homeController: HomeController!
     
-    // MARK: - Init
+    // MARK: - Lifecyle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHomeController()
     }
     
-    // MARK: - Handlers
+    // MARK: - Helpers
     
     func  configureHomeController() {
         homeController = HomeController()
-        let navContrcller = UINavigationController(rootViewController: homeController)
-        view.addSubview(navContrcller.view)
-        addChild(navContrcller)
+        let navController = UINavigationController(rootViewController: homeController)
+        view.addSubview(navController.view)
+        addChild(navController)
         print("Home Init")
         
     }
     
 }
-
 
 
 
