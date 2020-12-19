@@ -15,6 +15,7 @@ struct Day {
     var listData: [String]
     var importantNote: String?
     var additionalInfo: String?
+
     
     init(dictionary: [String : AnyObject]) {
         self.whichDay = dictionary["whichDay"] as? Int ?? 0

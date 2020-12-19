@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 class MenuOptionCell: UITableViewCell {
     // MARK: - Properties
     weak var viewModel: MenuOptionCellVMType! {
@@ -26,12 +26,14 @@ class MenuOptionCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .darkText
         label.font = UIFont.systemFont(ofSize: 16)
 
         return label
         
     }()
+    
+
     
     // MARK: - Init
     
@@ -47,6 +49,7 @@ class MenuOptionCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: subtitile.bottomAnchor, constant: 5).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
+        
         
     }
     

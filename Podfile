@@ -9,4 +9,5 @@ target '10 Days Of English' do
    pod 'SnapKit', '~> 5.0.0'
    pod 'Firebase'
    pod 'Firebase/Database'
+   pod 'Firebase/Storage'
 end

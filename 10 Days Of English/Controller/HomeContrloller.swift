@@ -13,14 +13,13 @@ class HomeController: UIViewController {
     // MARK: - Properties
     var days: [Day]?
     var viewModel: DayViewVMType?
+
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         fetchDays()
-        
-        
     }
     
     
@@ -56,6 +55,7 @@ class HomeController: UIViewController {
     func configureDayView(){
         guard let viewModel = viewModel else { return }
         let dayView = DayMainView(frame: .zero, viewModel: viewModel)
+        dayView.delegate = self
         if(view.subviews.count >= 1){
             for view in view.subviews {
                 view.removeFromSuperview()
@@ -64,15 +64,20 @@ class HomeController: UIViewController {
         } else {
             view.addSubview(dayView)
         }
+        
         dayView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(0)
-            make.left.equalTo(view).offset(16)
             make.bottom.equalTo(view)
-            make.right.equalTo(view).offset(-16)
-       
-        
+            make.left.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.right.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
-       
+        
+        let iphoneXAndLater =  view.safeAreaInsets.bottom
+        if(iphoneXAndLater > 0) {
+            dayView.snp.makeConstraints { (make) in
+                make.bottom.equalTo(view).offset(-34 + 15)
+            }
+        }
     }
     
     func configureNavigationBar() {
@@ -120,4 +125,26 @@ class HomeController: UIViewController {
         
     }
     
+    @objc func nextScren(){
+        print("DEBUG: YES ")
+    }
+}
+
+extension HomeController: DayMainViewDelegate {
+    func handleNextDayBtn(activeDay: Int) {
+        guard let days = self.days else { return }
+        
+        func configureView(_ activeDay: Int){
+            self.viewModel = DayViewModel(day: days[activeDay])
+            configureDayView()
+            configureNavigationBar()
+        }
+        
+        if(activeDay == 10) {
+            configureView(0)
+        } else {
+            configureView(activeDay)
+        }
+        
+    }
 }

@@ -9,9 +9,14 @@
 import UIKit
 import SnapKit
 
+protocol DayMainViewDelegate {
+    func handleNextDayBtn(activeDay: Int)
+}
+
 class DayMainView: UIView {
     //MARK: - Properties
     var viewModel: DayViewVMType!
+    var delegate: DayMainViewDelegate?
     
     //MARK: - Views
     lazy var scrollView: UIScrollView = {
@@ -62,6 +67,7 @@ class DayMainView: UIView {
         return stackViewList
     }()
     
+    
     lazy var additionalInfoView: UIView = {
         guard let additionalIno = viewModel.additionalInfo else { return UIView() }
         let view = UtilitisUI().otherInfoView(nameInfo: "Готово", text: additionalIno)
@@ -73,6 +79,7 @@ class DayMainView: UIView {
         let view = UtilitisUI().otherInfoView(nameInfo: "Важно", text: importantView )
         return view
     }()
+    
     lazy var nextDayBtn: UIButton = {
         let nextBtn = UIButton()
         nextBtn.setTitle("День \(viewModel.whichDay + 1)", for: .normal)
@@ -82,9 +89,19 @@ class DayMainView: UIView {
         nextBtn.snp.makeConstraints { (make) in
             make.height.equalTo(40)
         }
+        nextBtn.addTarget(self, action: #selector(handleNextDayBtn), for: .touchUpInside)
+        if(viewModel.whichDay == 10) {
+            nextBtn.setTitle("Начать заново!", for: .normal)
+        }
         return nextBtn
     }()
     
+    //MARK: - Selectors
+    
+    @objc func handleNextDayBtn() {
+        delegate?.handleNextDayBtn(activeDay: viewModel.whichDay)
+        
+    }
     
     //MARK: - Init
     
@@ -105,6 +122,7 @@ class DayMainView: UIView {
         addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalTo(self).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+            
         }
         
         scrollView.addSubview(containerView)
@@ -117,7 +135,7 @@ class DayMainView: UIView {
         //mainTitleLabel
         containerView.addSubview(mainTitleLabel)
         mainTitleLabel.snp.makeConstraints { (make)  in
-            make.top.equalTo(containerView).offset(20)
+            make.top.equalTo(containerView).offset(15)
             make.left.equalTo(containerView)
             make.right.equalTo(containerView)
             
@@ -153,18 +171,16 @@ class DayMainView: UIView {
         stackViewListCell()
         
         
-        
+        //NexDayBtn
         containerView.addSubview(nextDayBtn)
         nextDayBtn.snp.makeConstraints { (make) in
-            
-            make.bottom.equalTo(containerView.snp.bottom).offset(-20)
+            make.bottom.equalTo(containerView).offset(-15)
             make.left.equalTo(containerView)
             make.right.equalTo(containerView)
             
         }
         //additionalInfoLabel
         configureInfoViews()
-        
         
         
     }
@@ -194,7 +210,7 @@ class DayMainView: UIView {
             makeConstrintForBtn(element: importantInfoVIew)
             return
         } else if(additionalIno != nil) {
-              print("DEBUG: dwfwe")
+            print("DEBUG: dwfwe")
             containerView.addSubview(additionalInfoView)
             makeConstaint(element: additionalInfoView, equalTo: stackViewListContainer)
             makeConstrintForBtn(element: additionalInfoView)
