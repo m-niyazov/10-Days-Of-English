@@ -14,4 +14,5 @@ protocol DayViewVMType {
     var listData: [String] { get }
     var importantNote: String? { get }
     var additionalInfo: String? { get }
+   
 }

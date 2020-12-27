@@ -26,6 +26,7 @@ class UtilitisUI {
             textLabel.font = textLabel.font.withSize(18)
             textLabel.text = "\(item)"
             
+            
             let stackViewListCell = UIStackView()
             stackViewListCell.axis = .horizontal
             stackViewListCell.backgroundColor = .mainPink
@@ -66,7 +67,7 @@ class UtilitisUI {
              noteText.text = "\(text)"
              noteText.numberOfLines = 0
              noteText.font = UIFont (name: "HelveticaNeue", size: 17)
-             
+      
              viewContainer.addSubview(label)
              viewContainer.addSubview(noteText)
         

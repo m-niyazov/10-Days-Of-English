@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7A53B7D5448BF69EB1595C5B /* Pods_10_Days_Of_English.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464695BAF8017819163D00E /* Pods_10_Days_Of_English.framework */; };
+		980D98BA25992357002A04C5 /* HomeControllerVMType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D98B925992357002A04C5 /* HomeControllerVMType.swift */; };
+		980D98BC2599243F002A04C5 /* HomeControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D98BB2599243F002A04C5 /* HomeControllerViewModel.swift */; };
 		984090862588EF690058CCFF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984090852588EF690058CCFF /* Extension.swift */; };
 		9840908825890B5B0058CCFF /* UtilitisUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9840908725890B5B0058CCFF /* UtilitisUI.swift */; };
 		985E80762587E71400A71CDF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 985E80752587E71400A71CDF /* GoogleService-Info.plist */; };
-		985E807B2587FC5F00A71CDF /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E807A2587FC5F00A71CDF /* ExampleView.swift */; };
 		985E807E25880E2B00A71CDF /* DaysService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E807D25880E2B00A71CDF /* DaysService.swift */; };
 		985E808125882FE600A71CDF /* MenuControllerVMType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E808025882FE600A71CDF /* MenuControllerVMType.swift */; };
 		985E8083258834F800A71CDF /* MenuOptionCellVMType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E8082258834F800A71CDF /* MenuOptionCellVMType.swift */; };
@@ -36,10 +37,11 @@
 		045D4666C143DF05DEFFBFEC /* Pods-10 Days Of English.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-10 Days Of English.release.xcconfig"; path = "Target Support Files/Pods-10 Days Of English/Pods-10 Days Of English.release.xcconfig"; sourceTree = "<group>"; };
 		56D1892061AFC5861B29947A /* Pods-10 Days Of English.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-10 Days Of English.debug.xcconfig"; path = "Target Support Files/Pods-10 Days Of English/Pods-10 Days Of English.debug.xcconfig"; sourceTree = "<group>"; };
 		9464695BAF8017819163D00E /* Pods_10_Days_Of_English.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_10_Days_Of_English.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		980D98B925992357002A04C5 /* HomeControllerVMType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerVMType.swift; sourceTree = "<group>"; };
+		980D98BB2599243F002A04C5 /* HomeControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerViewModel.swift; sourceTree = "<group>"; };
 		984090852588EF690058CCFF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		9840908725890B5B0058CCFF /* UtilitisUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitisUI.swift; sourceTree = "<group>"; };
 		985E80752587E71400A71CDF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		985E807A2587FC5F00A71CDF /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		985E807D25880E2B00A71CDF /* DaysService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysService.swift; sourceTree = "<group>"; };
 		985E808025882FE600A71CDF /* MenuControllerVMType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerVMType.swift; sourceTree = "<group>"; };
 		985E8082258834F800A71CDF /* MenuOptionCellVMType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionCellVMType.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				985E807F25882FDC00A71CDF /* Protocols */,
+				980D98BB2599243F002A04C5 /* HomeControllerViewModel.swift */,
 				985E8088258844B000A71CDF /* DayViewModel.swift */,
 				985E80842588367200A71CDF /* MenuControllerViewModel.swift */,
 				985E808A25884ABE00A71CDF /* MenuOptionCellViewModel.swift */,
@@ -108,6 +111,7 @@
 				985E808025882FE600A71CDF /* MenuControllerVMType.swift */,
 				985E8082258834F800A71CDF /* MenuOptionCellVMType.swift */,
 				985E80862588443400A71CDF /* DayViewVMType.swift */,
+				980D98B925992357002A04C5 /* HomeControllerVMType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -179,7 +183,6 @@
 				98A051C4256D3C7E000FECCF /* LaunchScreen.storyboard */,
 				98A051DE256D9FBB000FECCF /* MenuOptionCell.swift */,
 				98A051E7256E8A04000FECCF /* DayMainView.swift */,
-				985E807A2587FC5F00A71CDF /* ExampleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				98A051D7256D3F83000FECCF /* MenuController.swift in Sources */,
 				9840908825890B5B0058CCFF /* UtilitisUI.swift in Sources */,
 				985E80852588367200A71CDF /* MenuControllerViewModel.swift in Sources */,
+				980D98BA25992357002A04C5 /* HomeControllerVMType.swift in Sources */,
 				98A051DF256D9FBB000FECCF /* MenuOptionCell.swift in Sources */,
 				98A051D2256D3F37000FECCF /* ContainerController.swift in Sources */,
 				98A051DB256D9BFD000FECCF /* Day.swift in Sources */,
@@ -335,8 +339,8 @@
 				98A051E8256E8A04000FECCF /* DayMainView.swift in Sources */,
 				98A051B9256D3C7D000FECCF /* SceneDelegate.swift in Sources */,
 				98732C1525729FFB00882681 /* Constants.swift in Sources */,
-				985E807B2587FC5F00A71CDF /* ExampleView.swift in Sources */,
 				985E80872588443400A71CDF /* DayViewVMType.swift in Sources */,
+				980D98BC2599243F002A04C5 /* HomeControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

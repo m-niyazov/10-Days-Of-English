@@ -34,23 +34,24 @@ class MenuOptionCell: UITableViewCell {
     }()
     
 
-    
+
     // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(subtitile)
-        subtitile.translatesAutoresizingMaskIntoConstraints = false
-        subtitile.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        subtitile.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-        subtitile.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        subtitile.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView).offset(10)
+            make.left.equalTo(contentView).offset(20)
+            make.right.equalTo(contentView)
+        }
         
         addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: subtitile.bottomAnchor, constant: 5).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-        
-        
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(subtitile.snp.bottom).offset(5)
+            make.left.equalTo(contentView).offset(30)
+        }
+
     }
     
     required init?(coder: NSCoder) {

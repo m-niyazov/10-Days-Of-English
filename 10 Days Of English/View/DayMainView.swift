@@ -44,7 +44,7 @@ class DayMainView: UIView {
         label.text = "Как это делать?"
         label.font = UIFont (name: "HelveticaNeue", size: 16)
         label.layer.borderColor = UIColor.lightBlue.cgColor
-        label.layer.borderWidth = 3
+        label.layer.borderWidth = 2
         label.layer.cornerRadius = 5
         label.textAlignment = .center
         return label
@@ -82,10 +82,10 @@ class DayMainView: UIView {
     
     lazy var nextDayBtn: UIButton = {
         let nextBtn = UIButton()
-        nextBtn.setTitle("День \(viewModel.whichDay + 1)", for: .normal)
+        nextBtn.setTitle("Далее", for: .normal)
         nextBtn.backgroundColor = .mainPink
-        nextBtn.tintColor = .white
-        nextBtn.layer.cornerRadius = 5
+        nextBtn.setTitleColor(.white, for: .normal)
+        nextBtn.layer.cornerRadius = 10
         nextBtn.snp.makeConstraints { (make) in
             make.height.equalTo(40)
         }
@@ -99,7 +99,11 @@ class DayMainView: UIView {
     //MARK: - Selectors
     
     @objc func handleNextDayBtn() {
-        delegate?.handleNextDayBtn(activeDay: viewModel.whichDay)
+        nextDayBtn.backgroundColor = #colorLiteral(red: 0.7820932269, green: 0.4995544553, blue: 0.552728951, alpha: 1)
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+            self.delegate?.handleNextDayBtn(activeDay: self.viewModel.whichDay)
+        }
+       
         
     }
     

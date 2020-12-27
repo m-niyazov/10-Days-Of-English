@@ -11,17 +11,16 @@ import SnapKit
 
 class HomeController: UIViewController {
     // MARK: - Properties
-    var days: [Day]?
-    var viewModel: DayViewVMType?
-
+    var viewModel: HomeControllerVMType?
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         fetchDays()
+     
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -30,15 +29,12 @@ class HomeController: UIViewController {
         configureDayView()
     }
     
-    //MARK: API
     func fetchDays() {
         DaysService.shared.fetchDays { (days) in
-            self.days = days
-            self.viewModel = DayViewModel(day: days[0])
+            self.viewModel = HomeControllerViewModel(days: days)
             self.configureNavigationBar()
             self.configureDayView()
         }
-        
     }
     
     
@@ -46,16 +42,16 @@ class HomeController: UIViewController {
     
     @objc func handleMenuToggle(){
         let menuController = MenuController()
-        guard let days = days else { return }
-        menuController.viewModel = MenuControllerViewModel(days: days)
+        menuController.viewModel = viewModel?.generateMenuControllerViewModel()
         navigationController?.pushViewController(menuController, animated: true)
     }
     
     // MARK: - Helpers
     func configureDayView(){
         guard let viewModel = viewModel else { return }
-        let dayView = DayMainView(frame: .zero, viewModel: viewModel)
+        let dayView = DayMainView(frame: .zero, viewModel: viewModel.generateDayViewModel())
         dayView.delegate = self
+        
         if(view.subviews.count >= 1){
             for view in view.subviews {
                 view.removeFromSuperview()
@@ -67,7 +63,6 @@ class HomeController: UIViewController {
         
         dayView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(0)
-            make.bottom.equalTo(view)
             make.left.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.right.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
@@ -76,6 +71,11 @@ class HomeController: UIViewController {
         if(iphoneXAndLater > 0) {
             dayView.snp.makeConstraints { (make) in
                 make.bottom.equalTo(view).offset(-34 + 15)
+            }
+        }
+        else {
+            dayView.snp.makeConstraints { (make) in
+                make.bottom.equalTo(view)
             }
         }
     }
@@ -125,21 +125,17 @@ class HomeController: UIViewController {
         
     }
     
-    @objc func nextScren(){
-        print("DEBUG: YES ")
-    }
 }
 
 extension HomeController: DayMainViewDelegate {
     func handleNextDayBtn(activeDay: Int) {
-        guard let days = self.days else { return }
-        
-        func configureView(_ activeDay: Int){
-            self.viewModel = DayViewModel(day: days[activeDay])
+        guard let viewModel = viewModel else { return }
+        func configureView(_ activeDay: Int) {
+            self.viewModel = HomeControllerViewModel(days: viewModel.days, withSelectedDay: activeDay)
             configureDayView()
             configureNavigationBar()
         }
-        
+
         if(activeDay == 10) {
             configureView(0)
         } else {

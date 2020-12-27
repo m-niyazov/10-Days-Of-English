@@ -9,6 +9,7 @@
 import Foundation
 
 class MenuControllerViewModel: MenuControllerVMType {
+    
     var days: [Day]
     var selecetedIndexPath: IndexPath?
     
@@ -27,9 +28,9 @@ class MenuControllerViewModel: MenuControllerVMType {
         
     }
     
-    func viewModelForSelectedRow() -> DayViewVMType? {
+    func viewModelForSelectedRow() -> HomeControllerVMType? {
         guard let selecetedIndexPath = selecetedIndexPath else { return nil }
-        return DayViewModel(day: days[selecetedIndexPath.row])
+        return HomeControllerViewModel(days: days, withSelectedDay: selecetedIndexPath.row)
     }
     
     func selectRow(atIndexPath indexPath: IndexPath) {

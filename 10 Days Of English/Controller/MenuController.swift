@@ -9,7 +9,7 @@
 import UIKit
 class MenuController: UIViewController {
     // MARK: - Properties
-    var viewModel: MenuControllerVMType! {
+    var viewModel: MenuControllerVMType? {
         didSet {
             configureTableView()
         }
@@ -19,6 +19,7 @@ class MenuController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureNavigationBar()
     }
     
@@ -37,7 +38,6 @@ class MenuController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
     }
     
     func  configureNavigationBar(){
@@ -60,7 +60,8 @@ class MenuController: UIViewController {
 
 extension MenuController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfRows
+        guard let viewModel = viewModel else { return  0}
+        return viewModel.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -74,6 +75,7 @@ extension MenuController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuOptionCell", for: indexPath) as! MenuOptionCell
+        guard let viewModel = viewModel else { return UITableViewCell() }
         let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.viewModel = cellViewModel
         return cell

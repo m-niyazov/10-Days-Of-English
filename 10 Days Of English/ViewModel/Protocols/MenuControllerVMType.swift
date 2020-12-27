@@ -11,9 +11,9 @@ import Foundation
 protocol MenuControllerVMType: class {
     var numberOfRows: Int { get }
     
-    func cellViewModel(forIndexPath indexPath: IndexPath) ->  MenuOptionCellVMType
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> MenuOptionCellVMType
     
-    func viewModelForSelectedRow() -> DayViewVMType?
+    func viewModelForSelectedRow() -> HomeControllerVMType?
     
     func selectRow(atIndexPath indexPath: IndexPath)
 }

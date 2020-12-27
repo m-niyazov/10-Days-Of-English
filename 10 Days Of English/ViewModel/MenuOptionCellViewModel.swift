@@ -12,15 +12,15 @@ import Foundation
 class MenuOptionCellViewModel: MenuOptionCellVMType {
     var day: Day
     
+    init(day: Day) {
+          self.day = day
+      }
+    
     var whichDay: Int {
         return day.whichDay
     }
     
     var title: String {
         return day.title
-    }
-    
-    init(day: Day) {
-        self.day = day
     }
 }

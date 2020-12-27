@@ -7,9 +7,13 @@
 //
 
 import Foundation
-
-class DayViewModel: DayViewVMType {
-    var day: Day
+class DayViewModel:  DayViewVMType{
+    private var day: Day
+    
+    init(day: Day) {
+        self.day = day
+  
+    }
     
     var whichDay: Int {
         return day.whichDay
@@ -17,10 +21,6 @@ class DayViewModel: DayViewVMType {
     
     var title: String {
         return day.title
-    }
-    
-    init(day: Day) {
-        self.day = day
     }
     
     var listData: [String] {
@@ -34,5 +34,7 @@ class DayViewModel: DayViewVMType {
     var additionalInfo: String? {
         return day.additionalInfo ?? nil
     }
+    
+
 
 }
